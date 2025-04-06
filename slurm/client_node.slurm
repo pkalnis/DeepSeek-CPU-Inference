@@ -8,9 +8,11 @@
 #SBATCH --cpus-per-task=192
 #SBATCH --hint=nomultithread
 #SBATCH --time=1:30:00
+#SBATCH -A s10002
 
-BASEDIR=/scratch/feic/pjs/DeepSeek-CPU-Inference/slurm
+BASEDIR=$(pwd)
 INSTALLDIR=${BASEDIR}/llama_cpp_install
+MODELDIR=$(dirname "$PWD")/models/DeepSeek-R1-GGUF/DeepSeek-R1-Q8_0/DeepSeek-R1.Q8_0-00001-of-00015.gguf
 export PATH=${INSTALLDIR}/bin:$PATH
 export LD_LIBRARY_PATH=${INSTALLDIR}/lib64:$LD_LIBRARY_PATH
 
@@ -37,10 +39,12 @@ do
     fi
 done < ./server_info 
 
+echo "Made it past server connection"
+echo ${server_list}
 
 sleep 10
 time -p srun -l -n ${SLURM_NTASKS} -N ${SLURM_NNODES} -c ${SLURM_CPUS_PER_TASK} \
-llama-cli -m  /scratch/feic/pjs/DeepSeek-CPU-Inference/models/DeepSeek-R1-GGUF/DeepSeek-R1-Q8_0/DeepSeek-R1.Q8_0-00001-of-00015.gguf \
--p "The weather was so perfect that I did not want to go back in the house. But I had left a new beef stew on the stove which needed my attention. Please generate in English what happend next " \
+llama-cli -m ${MODELDIR} \
+-p "The weather was so perfect that I did not want to go back in the house. But I had left a new beef stew on the stove which needed my attention. Please generate in English what happened next " \
 --repeat-penalty 1.0 -n 128 \
 --rpc ${server_list} -t 192  -no-cnv -ngl 99 
