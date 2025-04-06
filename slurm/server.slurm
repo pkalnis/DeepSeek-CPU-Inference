@@ -33,6 +33,6 @@ do
   server_port=$(srun -n 1 -N 1  -w ${nodes_array[i]} python3 -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()')
   echo "${server_ip}:${server_port}" >> server_info
   srun -n 1 -N 1 -c ${SLURM_CPUS_PER_TASK} -w ${nodes_array[i]} --cpu-bind=cores \
-  bash -c "python3 worker_diagnostics.py & rpc-server -H ${server_ip} -p ${server_port}" &
+  bash -c "python3 worker_diagnostics.py & rpc-server -H ${server_ip} -p ${server_port} -v" &
 done
 wait
