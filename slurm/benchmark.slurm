@@ -7,9 +7,9 @@
 #SBATCH --tasks-per-node=1
 #SBATCH --cpus-per-task=192
 #SBATCH --hint=nomultithread
-#SBATCH --time=00:30:00
+#SBATCH --time=10:30:00
 
-BASEDIR=/scratch/project/k01/exclude/shaima0d/tickets/60522/serving
+BASEDIR=/scratch/feic/pjs/DeepSeek-CPU-Inference/slurm
 INSTALLDIR=${BASEDIR}/llama_cpp_install
 export PATH=${INSTALLDIR}/bin:$PATH
 export LD_LIBRARY_PATH=${INSTALLDIR}/lib64:$LD_LIBRARY_PATH
@@ -40,7 +40,4 @@ done < ./server_info
 
 sleep 10
 time -p srun -l -n ${SLURM_NTASKS} -N ${SLURM_NNODES} -c ${SLURM_CPUS_PER_TASK} \
-llama-cli -m models/QwQ-32B-fp32.gguf  \
--p "The weather was so perfect that I did not want to go back in the house. But I had left a new beef stew on the stove which needed my attention. Please generate in English what happend next " \
---repeat-penalty 1.0 -n 128 \
---rpc ${server_list} -t 192  -no-cnv -ngl 99 
+llama-bench -m  /scratch/feic/pjs/DeepSeek-CPU-Inference/models/DeepSeek-R1-GGUF/DeepSeek-R1-Q8_0/DeepSeek-R1.Q8_0-00001-of-00015.gguf -t 32,64,128,256

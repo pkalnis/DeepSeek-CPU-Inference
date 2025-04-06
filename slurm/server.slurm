@@ -7,9 +7,9 @@
 #SBATCH --tasks-per-node=1
 #SBATCH --cpus-per-task=192
 #SBATCH --hint=nomultithread
-#SBATCH --time=00:30:00
+#SBATCH --time=1:30:00
 
-BASEDIR=/scratch/project/k01/exclude/shaima0d/tickets/60522/serving
+BASEDIR=/scratch/feic/pjs/DeepSeek-CPU-Inference/slurm
 INSTALLDIR=${BASEDIR}/llama_cpp_install
 export PATH=${INSTALLDIR}/bin:$PATH
 export LD_LIBRARY_PATH=${INSTALLDIR}/lib64:$LD_LIBRARY_PATH
