@@ -4,7 +4,12 @@
 The pre-requisites to build is to get the github repo clone and run the following command:
 NOTE: See the INSTALLATION directory and set PREFIX according to your choice.
 
-bash ./build_llama_cpp.sh 
+- git clone https://github.com/ggml-org/llama.cpp
+- bash ./build_llama_cpp.sh 
+- Download GGUF file for model
+- Modify the BASEDIR path and number of RPC servers in server.slurm
+- sbatch -n <num servers> server.slurm
+- sbatch client.slurm
 
 # RUN
 ------
