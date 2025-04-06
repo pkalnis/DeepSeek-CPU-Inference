@@ -1,0 +1,3 @@
+models/DeepSeek-R1-GGUF/
+slurm/llama.cpp/
+slurm/llama_cpp_install/
