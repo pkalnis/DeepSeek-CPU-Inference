@@ -1,11 +1,10 @@
 # BUILD
 -------
 
-The pre-requisites to build is to get the github repo clone and run the following command:
-NOTE: See the INSTALLATION directory and set PREFIX according to your choice.
+The pre-requisites to build are to clone the github repo and run the llama.cpp install script. Lastly, you need to install the GGUF file of any models you want to use:
 
-`git clone https://github.com/ggml-org/llama.cpp`
-`bash ./build_llama_cpp.sh `
+- `git clone https://github.com/ggml-org/llama.cpp`
+- `bash ./build_llama_cpp.sh `
 - Download GGUF file for model (e.g. using HuggingFace or similar website)
 
 # RUN
